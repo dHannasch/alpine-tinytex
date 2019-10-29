@@ -1,40 +1,16 @@
-FROM alpine:latest
+FROM ubuntu:bionic
 
-# tinytex dependencies
-RUN apk --no-cache add \
-  perl  \
-  wget \
-  xz \
-  tar \
-  fontconfig \
-  freetype \
-  lua \
-  gcc
+WORKDIR /var/local
 
-# add user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# combine into one run command to reduce image size
+RUN apt-get update && apt-get install --assume-yes perl wget libfontconfig1 && \
+    wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh  && \
+    apt-get clean
+ENV PATH="${PATH}:/root/bin"
+RUN tlmgr install xetex
+RUN fmtutil-sys --all
 
-# install as appuser
-USER appuser
-
-# setup workdir
-WORKDIR /home/appuser
-
-# setup path
-ENV PATH=/home/appuser/.TinyTeX/bin/x86_64-linuxmusl/:$PATH
-
-# download and install tinytex
-RUN wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh
-
-# add tlmgr to path
-RUN /home/appuser/.TinyTeX/bin/*/tlmgr path add
-
-# verify latex version
-RUN latex --version \
-    && tlmgr --version
-# verify tlmgr version
-
-# test that we can install texlive packages
-RUN tlmgr install \
-    beamer
+# install only the packages you need
+# this is the bit which fails for most other methods of installation
+RUN tlmgr install xcolor pgf fancyhdr parskip babel-english units lastpage mdwtools comment genmisc
 
