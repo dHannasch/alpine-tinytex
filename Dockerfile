@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install --assume-yes perl wget libfontconfig1 && \
     wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh  && \
     apt-get clean
 ENV PATH="${PATH}:/root/bin"
+RUN tlmgr update --self
 RUN tlmgr install xetex
 RUN fmtutil-sys --all
 
