@@ -13,5 +13,5 @@ RUN fmtutil-sys --all
 
 # install only the packages you need
 # this is the bit which fails for most other methods of installation
-RUN tlmgr install xcolor pgf fancyhdr parskip babel-english units lastpage mdwtools comment genmisc epstopdf
+RUN tlmgr install xcolor pgf fancyhdr parskip babel-english units lastpage mdwtools comment genmisc epstopdf epstopdf-base
 
