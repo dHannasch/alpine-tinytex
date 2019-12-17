@@ -15,4 +15,9 @@ RUN fmtutil-sys --all
 # this is the bit which fails for most other methods of installation
 RUN tlmgr install xcolor pgf fancyhdr parskip babel-english units lastpage mdwtools comment genmisc epstopdf
 # tlmgr install: package epstopdf-base not present in repository.
+# epstopdf consists of the main source file epstopdf.dtx and the derived files
+##    epstopdf.sty, epstopdf.pdf, epstopdf.ins, epstopdf.drv,
+##    epstopdf-base.sty, epstopdf-test1.tex.
+RUN mkdir /root/.TinyTeX/texmf-dist/tex/latex/manually-added-because-epstopdf-base-sty-not-found/
+COPY epstopdf-base.sty /root/.TinyTeX/texmf-dist/tex/latex/manually-added-because-epstopdf-base-sty-not-found/epstopdf-base.sty
 
