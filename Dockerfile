@@ -1,5 +1,5 @@
-FROM superruzafa/tinytex
-# FROM dahanna/alpine-tinytex:try-ubuntu
+# FROM superruzafa/tinytex # works but tlmgr update --self does not respect proxy settings
+FROM dahanna/alpine-tinytex:try-ubuntu
 
 RUN tlmgr update --self
 
