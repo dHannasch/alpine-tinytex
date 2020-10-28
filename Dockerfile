@@ -1,4 +1,5 @@
-FROM dahanna/alpine-tinytex:try-ubuntu
+FROM superruzafa/tinytex
+# FROM dahanna/alpine-tinytex:try-ubuntu
 
 RUN tlmgr update --self
 
